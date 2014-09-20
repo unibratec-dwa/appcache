@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>MeuWebApp</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<link rel="stylesheet" href="bibliotecas/bootstrap/css/bootstrap.css">
+
+	<style>
+	#instalador {
+		position: absolute;
+		visibility: hidden;
+	}
+	#progresso {
+		width: 100%;
+		display: none;
+	}
+	#botaoAbrir {
+		display: none;
+	}
+	</style>
+</head>
+<body>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12"><h1>Meu WebApp Instalável</h1></div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-1">
+				<button class="btn btn-primary" id="botaoInstalar">Instalar</button>
+				<a class="btn btn-primary" id="botaoAbrir" href="app.html">Abrir</a>
+			</div>
+			<div class="col-xs-12">
+				<h2>Progresso da instalação</h2>
+				<progress id="progresso" value="0" max="100">0</progress>
+				<ol id="log"></ol>
+			</div>
+		</div>
+	</div>
+
+<!-- 	<iframe id="instalador" src="instalador.html" frameborder="0"></iframe>
+ -->
+
+	
+	<script src="bibliotecas/js/jquery.js"></script>
+	<script src="bibliotecas/bootstrap/js/bootstrap.js"></script>
+	<script>
+
+	$("#botaoInstalar").on("click", function(event){
+		$("#progresso").show();
+		$("#instalador").remove();
+		$("#log").empty();
+		$("<iframe>")
+			.attr('src', 'instalador.html')
+			.attr('id', 'instalador')
+			.attr('frameborder', '0')
+			.appendTo(document.body);
+	});
+
+
+	function progresso(valor) {
+		$("#progresso").attr('value', valor).text(valor);
+		if(valor == 100) {
+			$("#botaoAbrir, #botaoInstalar").toggle();
+		}
+	}
+	function log(texto) {
+		$("<li>").text(texto).appendTo("#log");
+	}
+
+	</script>
+</body>
+</html>

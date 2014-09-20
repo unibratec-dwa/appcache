@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Meu WebApp</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<script>
+
+	var buscandoAtualizacao = false;
+	
+	window.addEventListener("load", function(){
+		window.applicationCache.addEventListener("updateready", function(){
+
+				var texto = "Existe uma atualização disponível. \nVocê deseja utilizá-la agora? \nO aplicativo será reiniciado.";
+
+				var resposta = confirm(texto);
+
+				if(resposta == true) {
+
+					window.applicationCache.swapCache();
+					window.location.reload();
+
+				}
+
+		}, true);
+
+
+		window.applicationCache.addEventListener("noupdate", function() {
+			if(buscandoAtualizacao){
+				alert('Você já está com a última versão do webapp');
+				buscandoAtualizacao = false;
+			}
+		}, true)
+
+	}, true);
+
+	</script>
+	<link rel="stylesheet" href="bibliotecas/bootstrap/css/bootstrap.css">
+	
+
+
+	<style>
+	</style>
+
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+				<h1>Meu Mega WebApp</h1>
+
+				<button class="btn btn-primary" id="atualizar">Atualizar webapp</button>
+			</div>
+		</div>
+	</div>
+
+	<script src="bibliotecas/js/jquery.js"></script>
+	<script src="bibliotecas/bootstrap/js/bootstrap.js"></script>
+
+	<script>
+	$("#atualizar").on("click", function() {
+		buscandoAtualizacao = true;
+		applicationCache.update();
+	});
+	</script>
+</body>
+</html>
